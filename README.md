@@ -7,7 +7,7 @@ The team's project is comprised of 2 application.
 1. A frontend UI built written in Typescript, using the React framework
 2. A backend API written in Python using the Flask framework.
 
-You'll find 2 folders, one named `frontend` and one named `backend`, where each application's source code is maintained. Your job is to use the team's [existing documentation](#frontend-development-notes) and create CI/CD pipelines to meet the teams' needs.
+In the `starter` folder, you'll find 2 folders, one named `frontend` and one named `backend`, where each application's source code is maintained. Your job is to use the team's [existing documentation](./starter/frontend/frontend-development-notes) and create CI/CD pipelines to meet the teams' needs.
 
 ## Deliverables
 
@@ -249,7 +249,7 @@ To build the frontend application for a production deployment, they use the foll
 # The URL below would be the default backend URL when running locally
 docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
 
-docker run --name mp-frontend -p 3000:3000 -d mp-frontend]
+docker run --name mp-frontend -p 3000:3000 -d mp-frontend
 
 # Open the browser to localhost:3000 and you should see the list of movies,
 # provided the backend is already running and available on localhost:5000
