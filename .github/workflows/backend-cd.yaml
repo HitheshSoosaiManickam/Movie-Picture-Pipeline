@@ -9,9 +9,9 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_REGION: us-east-1                  # Update to your AWS region
-  ECR_REPOSITORY: my-backend-repo        # Update to your ECR repo name
-  EKS_CLUSTER_NAME: my-cluster           # Update to your EKS cluster name
+  AWS_REGION: us-east-1                  
+  ECR_REPOSITORY: my-backend-repo        
+  EKS_CLUSTER_NAME: my-cluster           
 
 jobs:
   lint:

@@ -9,10 +9,10 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_REGION: us-east-1                  # Adjust to your AWS region
-  ECR_REPOSITORY: my-frontend-repo       # Adjust to your ECR repo name
-  EKS_CLUSTER_NAME: my-cluster          # Adjust to your EKS cluster name
-
+  AWS_REGION: us-east-1                  
+  ECR_REPOSITORY: my-frontend-repo       
+  EKS_CLUSTER_NAME: my-cluster          
+  
 jobs:
   test:
     name: Run Tests
