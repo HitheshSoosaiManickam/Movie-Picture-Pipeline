@@ -67,7 +67,5 @@ jobs:
 
       - name: Apply Kubernetes Manifests
         run: |
-          # Replaces image placeholder or updates image inline using kubectl
-          kubectl set image deployment/frontend-deployment frontend=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }} -n default
-          # Or apply manifests if you use envsubst / kustomize:
-          # kubectl apply -f starter/frontend/k8s/
+          kubectl set image deployment/frontend frontend=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }} -n default
+          
