@@ -4,14 +4,12 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'starter/backend/**'
   workflow_dispatch:
 
 env:
   AWS_REGION: us-east-1                  
-  ECR_REPOSITORY: my-backend-repo        
-  EKS_CLUSTER_NAME: my-cluster           
+  ECR_REPOSITORY: movie-backend    
+  EKS_CLUSTER_NAME: movie-cluster           
 
 jobs:
   lint:
@@ -89,7 +87,7 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG starter/backend
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-  deploy:
+deploy:
     name: Deploy to Kubernetes
     needs: build
     runs-on: ubuntu-latest
@@ -104,16 +102,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
       - name: Set up Kubeconfig
         run: |
           aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
 
-      - name: Apply Kubernetes Manifests
+      - name: Deploy Updated Image
         env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ needs.build.outputs.image_tag }}
         run: |
-          # Updates the backend deployment image tag dynamically
-          kubectl set image deployment/backend-deployment backend=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -n default
-          
-          # Alternatively, apply manifest directory if using envsubst or kustomize:
-          # kubectl apply -f starter/backend/k8s/ .
+          kubectl set image deployment/backend-deployment backend=$ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG -n default

@@ -4,14 +4,12 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'starter/frontend/**'
   workflow_dispatch:
 
 env:
   AWS_REGION: us-east-1                  
-  ECR_REPOSITORY: my-frontend-repo       
-  EKS_CLUSTER_NAME: my-cluster          
+  ECR_REPOSITORY: movie-frontend     
+  EKS_CLUSTER_NAME: movie-cluster          
   
 jobs:
   test:
