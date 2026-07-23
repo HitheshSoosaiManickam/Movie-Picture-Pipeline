@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 5000
 
 # Served via HTTP directly on port 5000
-CMD ["uwsgi", "--http", ":5000", "--master", "--enable-threads", "--manage-script-name", "--mount", "/=app:app"]
+CMD ["uwsgi", "--http", "0.0.0.0:5000", "--wsgi-file", "app.py", "--callable", "app", "--master", "--enable-threads"]
